@@ -1,0 +1,2 @@
+<?xml version='1.0' encoding='utf-8'?>
+<catalogos><categoria><id>1</id><nombre>Electronica</nombre><margen>0.15</margen></categoria><categoria><id>2</id><nombre>Hogar</nombre><margen>0.20</margen></categoria><categoria><id>3</id><nombre>Moda</nombre><margen>0.30</margen></categoria></catalogos>
