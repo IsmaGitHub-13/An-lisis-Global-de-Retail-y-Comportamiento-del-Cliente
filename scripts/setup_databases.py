@@ -7,7 +7,6 @@ import random
 import os
 
 fake = Faker()
-# Configuración de rutas según tu estructura en D:
 PATH_RAW = "../data/raw/"
 if not os.path.exists(PATH_RAW):
     os.makedirs(PATH_RAW)
@@ -20,8 +19,8 @@ def populate_postgres():
             host="localhost",
             database="retail_db",
             user="postgres",
-            password="130802", # Pon tu clave real
-            client_encoding='utf8' # Esto soluciona el error del codec
+            password="130802", 
+            client_encoding='utf8' 
         )
         cur = conn.cursor()
         for _ in range(7500):
@@ -35,7 +34,6 @@ def populate_postgres():
     except Exception as e:
         print(f"Error: {e}")
 
-# 2. MongoDB: Perfiles (1,500 perfiles - Rango 1k-2k)
 def populate_mongodb():
     try:
         client = MongoClient("mongodb://localhost:27017/")
@@ -56,7 +54,6 @@ def populate_mongodb():
         print("MongoDB listo (1,500 docs).")
     except Exception as e: print(f"Error Mongo: {e}")
 
-# 3. CSV: Inventario (800 filas con 10% nulos y 5% duplicados)
 def create_dirty_inventory():
     print("Generando inventario.csv sucio...")
     base_data = []
@@ -69,18 +66,15 @@ def create_dirty_inventory():
         })
     df = pd.DataFrame(base_data)
     
-    # 5% de Duplicados (40 filas)
     duplicados = df.sample(n=40)
     df = pd.concat([df, duplicados], ignore_index=True)
     
-    # 10% de Nulos (80 filas) en la columna 'stock'
     nulos_indices = df.sample(n=80).index
     df.loc[nulos_indices, 'stock'] = np.nan
     
     df.to_csv(os.path.join(PATH_RAW, "inventario.csv"), index=False)
     print("CSV listo (840 filas con errores).")
 
-# 4. TXT: Logs del Servidor (2,500 líneas - Rango 2k-3k)
 def create_server_logs():
     print("Generando logs_servidor.txt...")
     with open(os.path.join(PATH_RAW, "logs_servidor.txt"), "w") as f:
