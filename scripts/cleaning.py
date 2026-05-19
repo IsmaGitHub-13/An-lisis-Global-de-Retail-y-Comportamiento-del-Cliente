@@ -17,5 +17,5 @@ def limpiar_datos(df_ventas, df_perfiles, df_inv):
     if 'país' in df_perfiles.columns:
         df_perfiles['país'] = df_perfiles['país'].str.strip().str.title()
 
-    print(f"✅ Fecha corregida. Ejemplo: {df_ventas['fecha'].iloc[0]}")
+    print(f"Fecha corregida. Ejemplo: {df_ventas['fecha'].iloc[0]}")
     return df_ventas, df_perfiles, df_inv
